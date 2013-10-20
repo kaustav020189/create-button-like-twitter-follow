@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Twitter like follow button - using JQuery PHP AJAX</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<style>
+    body{
+        background: #e9e9e9
+    }
+    img{
+        max-width: 100%;
+    }
+    #wrapper{
+        margin: 50px auto;text-align: center;width: 50%;height: auto;overflow: auto;background: #fff;
+        border: 1px solid #ccc
+    }    
+    #top{
+        height: auto;overflow: auto;border-bottom: 1px solid #ddd;padding-top: 25px;
+        font-size: 25px;color: dodgerblue
+    }
+    #top ul{
+        margin: 0;padding: 0;height: auto;overflow: auto;
+    }
+    #top ul li{
+        display: inline-block;padding: 0;margin: 2% 0 0 2%;
+        height: auto;width: 30%;vertical-align: top;
+        font-size: 20px;color: #999;
+    }
+    #top ul li img{
+        height: 70px;margin: 0;padding: 5px;vertical-align: top;border: 1px solid #ddd
+    }
+    #top ul li span{
+        display: block;margin-top: 30px;
+    }
+    .follow, .nofollow{
+        margin-top: 30px;border: 0;background: transparent;width: 100px;height: 35px;
+        border: 1px solid #eee;background: dodgerblue;color: #fff;font-size: 18px;
+        
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -o-border-radius: 5px;
+        
+        cursor: pointer
+    }
+    .nofollow{
+        background: #222;
+    }
+    #bottom{
+        min-height: 50px;height: auto;overflow: auto;border-bottom: 1px solid #ddd
+    }
+    #bottom ul{
+        margin: 0;padding: 0;height: auto;overflow: auto;
+    }
+    #bottom ul li{
+        display: inline-block;padding: 0;margin: 2% 0 2% 2%;
+        height: auto;min-width: 30%;vertical-align: top;
+        font-size: 20px;text-align: left
+    }
+    #bottom ul li img{
+        height: 70px;margin: 0;padding: 5px;vertical-align: top;border: 1px solid #ddd
+    }
+    #bottom ul li span{
+        display: block;margin-top: 30px;
+    }
+    #share{
+        position: fixed;z-index: 9999;top: 50px;left: 20px;width: 200px;height: 500px;background: #fff;
+        border: 1px solid #ccc
+    }
+    #share ul li{
+        display: block;margin: 30px auto
+    }
+    #articlelink{
+        position: fixed;z-index: 9999;top: 50px;right: 20px;width: 200px;height: 200px;background: #fff;
+        border: 1px solid #ccc
+    }
+    #articlelink a{
+        display: block;margin: 40% 10%;font-size: 20px
+    }
+</style>
+</head>
+<body>
+    <div id="fb-root"></div>
+
+<script>(function(d, s, id) {
+
+  var js, fjs = d.getElementsByTagName(s)[0];
+
+  if (d.getElementById(id)) return;
+
+  js = d.createElement(s); js.id = id;
+
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+
+  fjs.parentNode.insertBefore(js, fjs);
+
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<script>
+        $(document).ready(function(){
+            $(".button").click(function(){
+                var thiss = $(this);
+                var value = thiss.attr("value");
+                var id = thiss.attr("id");
+                
+                $.post("update.php", {value:value,id:id}, function(data){
+                if(thiss.hasClass("follow")){  
+                   thiss.removeClass("follow");
+                   thiss.addClass("nofollow");
+                   thiss.attr("value","Unfollow");                      
+                }
+                else{
+                   thiss.removeClass("nofollow");
+                   thiss.addClass("follow");
+                   thiss.attr("value","Follow");
+                }    
+                $("#bottom").prepend(data);
+                });             
+            });
+        });
+    </script>
+    <div id="wrapper">
+        <div id="top">
+            TWITTER LIKE FOLLOW BUTTON<br />
+            <span style="color: #ddd;font-size: 18px">with JQuery / PHP / AJAX</span>
+            <ul>
+                <li><img src="images/messi.jpg" alt="create button like twitter follow"/></li>
+                <li><span>Lionel Messi</span></li>
+                <li><input type="submit" id="1" class="follow button" value="Follow"/></li>
+            </ul>
+            <ul>
+                <li><img src="images/ozil.jpg" alt="create button like twitter follow"/></li>
+                <li><span>Mesut Ozil</span></li>
+                <li><input type="submit" id="2" class="follow button" value="Follow"/></li>
+            </ul>
+            <ul>
+                <li><img src="images/neymar.jpg" alt="create button like twitter follow"/></li>
+                <li><span>Neymar JR.</span></li>
+                <li><input type="submit" id="3" class="follow button" value="Follow"/></li>
+            </ul>
+            <ul>
+                <li><img src="images/rooney.jpg" alt="create button like twitter follow"/></li>
+                <li><span>Wayne Rooney</span></li>
+                <li><input type="submit" id="4" class="follow button" value="Follow"/></li>
+            </ul>
+            <br />
+        </div>
+        <div id="bottom">
+        </div>
+    </div>
+    <div id="share">
+        <ul>
+                                <li>
+                                    <div class="fb-like" data-href="http://www.projects.a100websolutions.in/create-button-like-twitter-follow/" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false"></div>
+                                </li>
+                                <li>
+                                    <div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60" data-href="http://www.projects.a100websolutions.in/create-button-like-twitter-follow/"></div>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.projects.a100websolutions.in/create-button-like-twitter-follow/" data-count="vertical" data-via="a100websolution" data-hashtags="coding-tutorials"></a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                                </li>				
+				<li>
+					<a href="//pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.projects.a100websolutions.in%2Fcreate-button-like-twitter-follow%2F&media=http%3A%2F%2Fwww.projects.a100websolutions.in%2Fcreate-button-like-twitter-follow%2Fimages%2Flogo.png&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="above">
+                                            <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>                                   
+                                </li>				
+                            </ul> 
+    </div>
+    <div id="articlelink">
+        <a href="http://www.a100websolutions.in/create-button-like-twitter-follow/">Go to tutorial</a>
+    </div>
+    <script type="text/javascript">
+
+  (function() {
+
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+
+    po.src = 'https://apis.google.com/js/plusone.js';
+
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+
+  })();
+
+</script>
+
+<!-- Next line for Pinterest -->
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+    
+</body>
+</html>
